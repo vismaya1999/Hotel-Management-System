@@ -1,0 +1,57 @@
+{% extends 'admin.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div style="opacity:.8">
+              <div class="card">
+                <div class="card-body" >
+                  <h4 class="card-title">Students</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>SI NO</th>
+                          <th>Name</th>
+                          <th>Admission no</th>
+                          <th>Contact no</th>
+                          <th>Email</th>
+                          <th>Address</th>
+                          <th>Approval_Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                          <td class="py-1">{{ forloop.counter }}</td>
+
+                          <td>{{ i.name }}</td>
+                          <td>{{ i.admission_no }}</td>
+                          <td>{{ i.contact_no }}</td>
+                          <td>{{ i.email}}</td>
+                          <td>{{ i.address}}</td>
+                          <td>
+                            {% if i.approval_status == 0 %}
+                            <a class="btn btn-success" href="{% url 'approval_student' i.user_id %}">Approve</a>
+                            <a class="btn btn-danger" href="{% url 'reject_student' i.user_id %}">Reject</a>
+                            {% elif i.approval_status == 1 %}
+                            <p class="btn btn-success">Approved</p>
+                            {% elif i.approval_status == 2 %}
+                            <p class="btn btn-danger">Rejected</p>
+                            {% endif %}
+                          </td>
+
+                          <td>
+                            <form action="{% url 'stud_viewf' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="customer" value="{{ i.id }}"/>
+<!--                                <button type="submit" class="btn btn-info">Delete</button>-->
+                                </form>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

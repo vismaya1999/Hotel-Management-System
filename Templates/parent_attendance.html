@@ -1,0 +1,37 @@
+{% extends 'parent.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Attendance</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>SI No</th>
+                          <th>Student name</th>
+                          <th>Date</th>
+                          <th>Attendance</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                          <td class="py-1">{{ forloop.counter }}</td>
+                          <td>{{ i.student_name }}</td>
+                          <td>{{ i.date }}</td>
+                          <td>{{ i.attendance }}</td>
+<!--                          <td>-->
+<!--                            <a class="btn btn-success" href="{% url 'update_attendance' i.id %}">Update</a>-->
+<!--                            <a class="btn btn-danger" href="{% url 'delete_attendance' i.id %}">Delete</a>-->
+<!--                          </td>-->
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}

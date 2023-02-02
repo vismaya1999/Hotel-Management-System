@@ -1,0 +1,48 @@
+{% extends 'admin.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Fee_Details</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>SI No</th>
+                          <th>Student_name</th>
+                          <th>Admission No </th>
+                          <th>Room Type</th>
+                          <th>Booking Date</th>
+                          <th>Joining Date</th>
+                          <th>Booking status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                          <td class="py-1">{{ forloop.counter }}</td>
+                          <td>{{ i.student_name }}</td>
+                          <td>{{ i.admission_no }}</td>
+                          <td>{{ i.room_type}}</td>
+                          <td>{{ i.booking_date }}</td>
+                          <td>{{ i.joining_date }}</td>
+                          <td>
+                            {% if i.approval_status == 0 %}
+                            <a class="btn btn-success" href="{% url 'approval_booking' i.id %}">Booked</a>
+                            <a class="btn btn-danger" href="{% url 'reject_booking' i.id %}">Reject</a>
+                            {% elif i.approval_status == 1 %}
+                            <p class="btn btn-success">Booked</p>
+                            {% elif i.approval_status == 2 %}
+                            <p class="btn btn-danger">Rejected</p>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}
